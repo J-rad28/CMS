@@ -1,4 +1,5 @@
 <?php
+    //add post
     if(isset($_POST['create_post'])){
         $post_title = $_POST['post_title'];
         $post_category = $_POST['post_category_id'];

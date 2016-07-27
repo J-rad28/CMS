@@ -2,6 +2,23 @@
 <?php include 'includes/db.php' ?>
     <!-- Navigation -->
 <?php include 'includes/navigation.php' ?>
+    
+<?php
+//add comment to database
+if(isset($_POST['submit'])){
+    $com_content = $_POST['comment'];
+    $com_author = "user";
+    $com_email = "user@email.com";
+    $com_post_id = $_POST['submit'];
+    $post_date = date('d-m-y');
+
+    $query = "INSERT INTO comments(comment_post_id, comment_date, comment_author, comment_email, comment_content) ";
+    $query .= "VALUES({$com_post_id}, now(), '{$com_author}', '{$com_email}', '{$com_content}')";
+    mysqli_query($connection, $query); 
+    
+    header("Location:post.php?p_id={$com_post_id}");
+}
+?>
 
     <!-- Page Content -->
     <div class="container">
@@ -55,11 +72,11 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
+                    <form method="post" action="" enctype="multipart/form-data">
                         <div class="form-group">
-                            <textarea class="form-control" name="comment" rows="3" placeholder="Enter comment here"></textarea>
+                           <textarea name="comment" class="form-control" placeholder="Enter comment here" cols="30" rows="5"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+                        <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $post_id; ?>">Submit Comment</button>
                     </form>
                 </div>
 
@@ -67,7 +84,6 @@
 
                 <!-- Posted Comments -->
                 <?php
-                //need to fix, it is showing all comments and not just approved ones
                 if(isset($_GET['p_id'])){
                     $com_post_id = $_GET['p_id'];
                     
@@ -80,13 +96,7 @@
                         $com_status = $row['comment_status'];
                         $com_date = $row['comment_date'];
                         
-                        if ($com_status = 2){
-                            echo "True";
-                        }else{
-                            echo "False";
-                        }
-                        
-                        if($com_status = 2){
+                        if($com_status == 2){
                             ?>
                             <!-- Comment -->
                             <div class="media">
@@ -101,8 +111,6 @@
                                 </div>
                             </div>
                             <?php
-                        }else{
-                            echo "be the frist to comment";
                         }
                     }
                 }

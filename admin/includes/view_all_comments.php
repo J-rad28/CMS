@@ -41,7 +41,13 @@
             $status_id = $row['com_status_id'];
             $status = $row['com_status'];
             
-            echo "<td>{$status}</td>";
+            if($status_id == 1){
+                echo "<td style='color:orange'>{$status}</td>";
+            }elseif($status_id == 2){
+                echo "<td style='color:green'>{$status}</td>";
+            }else{
+                echo "<td style='color:red'>{$status}</td>";
+            }
         } 
          
         $query = "SELECT * FROM posts WHERE post_id = {$com_post_id} ";
