@@ -17,6 +17,7 @@ if(isset($_POST['submit'])){
     mysqli_query($connection, $query); 
     
     header("Location:post.php?p_id={$com_post_id}");
+    
 }
 ?>
 
@@ -29,8 +30,6 @@ if(isset($_POST['submit'])){
             <div class="col-lg-8">
 
                 <!-- Blog Post -->
-
-                <!-- Title -->
                 <?php
                 if(isset($_GET['p_id'])){
                     $post_id = $_GET['p_id'];
