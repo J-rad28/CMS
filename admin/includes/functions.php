@@ -51,10 +51,9 @@ function ShowAllCat(){
         $cat_title = $row['cat_title'];
 
         echo "<tr>";
-        echo "<td>{$cat_id}</td>";
         echo "<td>{$cat_title}</td>";
-        echo "<td><a href ='categories.php?delete={$cat_id}'>Delete</a></td>";
         echo "<td><a href ='categories.php?update={$cat_id}'>Update</a></td>";
+        echo "<td><a href ='categories.php?delete={$cat_id}'>Delete</a></td>";
         echo "</tr>";
     }
 }

@@ -20,9 +20,17 @@
                         $source = "";
                     }
                     switch($source){
-                            
+                        
+                        case 'add_user';
+                        include "includes/add_users.php";
+                        break; 
+                        
+                        case 'edit_user';
+                        include "includes/edit_users.php";
+                        break;
+
                         default:
-                        include "includes/view_all_comments.php";
+                        include "includes/view_all_users.php";
                         break;
                     } 
                 ?>  

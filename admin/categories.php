@@ -23,10 +23,9 @@
                         <table class="table table-bordered table-hover">
                             <thread>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Category Title</th>
-                                    <th>Delete</th>
                                     <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thread>
                             <tbody>
