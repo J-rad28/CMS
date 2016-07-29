@@ -2,7 +2,6 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Author</th>
             <th>Comment</th>
             <th>Email</th>
@@ -16,11 +15,14 @@
     </thead>
     <tbody>
     <?php
+     //fetch all comments from database
      global $connection;
      $query = "SELECT * FROM comments";
      $select_comments = mysqli_query($connection, $query);
 
      while($row = mysqli_fetch_assoc($select_comments)){
+        global $connection;
+         
         $com_id = $row['comment_id'];
         $com_author = $row['comment_author'];
         $com_content = $row['comment_content'];
@@ -30,7 +32,6 @@
         $com_date = $row['comment_date'];
 
         echo "<tr>";
-        echo "<td>{$com_id}</td>";
         echo "<td>{$com_author}</td>";
         echo "<td>{$com_content}</td>";
         echo "<td>{$com_email}</td>";
@@ -60,9 +61,22 @@
         }
          
         echo "<td>{$com_date}</td>";
-        echo "<td><a href='comments.php?approve={$com_id}'>Approve</a></td>";
-        echo "<td><a href='comments.php?reject={$com_id}'>Reject</a></td>";
-        echo "<td><a href='comments.php?delete={$com_id}'>Delete</a></td>";
+         
+         //Approve button
+        if($com_status == 2){
+            echo "<td>Approve</td>";
+        }else{
+            echo "<td><a href='comments.php?approve={$com_id}&post_id={$com_post_id}'>Approve</a></td>";
+        }
+         
+         //Reject button
+        if($com_status == 3){
+            echo "<td>Reject</td>";
+        }else{
+            echo "<td><a href='comments.php?reject={$com_id}&post_id={$com_post_id}'>Reject</a></td>";
+        }
+
+        echo "<td><a href='comments.php?delete={$com_id}&post_id={$com_post_id}'>Delete</a></td>";
         echo "</tr>";
      }
     ?>
@@ -72,26 +86,36 @@
 <?php
 //delete comment
 if(isset($_GET['delete'])){
+    global $connection;
     $delete_comment = $_GET['delete'];
+    $post_id = $_GET['post_id'];
+
+    $queryU = "UPDATE posts SET ";
+    $queryU .= "post_comment_count = post_comment_count - 1 ";
+    $queryU .= "WHERE post_id = {$post_id}";
+    mysqli_query($connection, $queryU);
+      
     $query = "DELETE FROM comments WHERE comment_id = {$delete_comment} ";
     $delete_query = mysqli_query($connection, $query);
     
     confirm($delete_query);
-    header("Location: posts.php");
+    header("Location: comments.php");
 }
 ?>
 
 <?php
 //approve comment
 if(isset($_GET['approve'])){
+    global $connection;
     $com_id = $_GET['approve'];
+    $post_id = $_GET['post_id'];
     $approve_comment = 2;
     
     $query = "UPDATE comments SET ";
     $query .= "comment_status = {$approve_comment} ";
     $query .= "WHERE comment_id = {$com_id}";
     $approve_query = mysqli_query($connection, $query);
-    
+
     confirm($approve_query);
     header("Location: comments.php");
 }
@@ -100,11 +124,13 @@ if(isset($_GET['approve'])){
 <?php
 //reject comment
 if(isset($_GET['reject'])){
+    global $connection;
     $com_id = $_GET['reject'];
-    $approve_comment = 3;
+    $post_id = $_GET['post_id'];
+    $reject_comment = 3;
     
     $query = "UPDATE comments SET ";
-    $query .= "comment_status = {$approve_comment} ";
+    $query .= "comment_status = {$reject_comment} ";
     $query .= "WHERE comment_id = {$com_id}";
     $reject_query = mysqli_query($connection, $query);
     

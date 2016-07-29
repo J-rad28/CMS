@@ -71,7 +71,7 @@
     </div>
     <div class="form-group">
         <lable for="post_category">Post Category</lable></br>
-        <select name="post_category" id="">
+        <select class="form-control" name="post_category" id="">
            <?php
             $query = "SELECT * FROM categories";
             $select_cat = mysqli_query($connection, $query);
@@ -89,23 +89,6 @@
     <div class="form-group">
         <lable for="post_author">Author</lable>
         <input type="text" class="form-control" name="post_author" value="<?php if(isset($post_author)){echo $post_author;} ?>">
-    </div> 
-    <div class="form-group">
-        <lable for="post_status">Status</lable></br>
-        <select name="post_status" id="">
-            <?php
-            $query = "SELECT * FROM status";
-            $select_status = mysqli_query($connection, $query);
-            confirm($select_status);
-           
-            while($row = mysqli_fetch_assoc($select_status)){
-                $status_id = $row['status_id'];
-                $status = $row['value'];
-                
-                echo "<option value='$status_id'>{$status}</option>";
-            }
-           ?>
-        </select>
     </div> 
     <div class="form-group">
         <lable for="post_image">Image</lable></br>

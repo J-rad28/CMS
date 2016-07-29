@@ -7,8 +7,8 @@
 //add comment to database
 if(isset($_POST['submit'])){
     $com_content = $_POST['comment'];
-    $com_author = "user";
-    $com_email = "user@email.com";
+    $com_author = $_POST['com_author'];
+    $com_email = $_POST['com_email'];
     $com_post_id = $_POST['submit'];
     $post_date = date('d-m-y');
 
@@ -16,8 +16,12 @@ if(isset($_POST['submit'])){
     $query .= "VALUES({$com_post_id}, now(), '{$com_author}', '{$com_email}', '{$com_content}')";
     mysqli_query($connection, $query); 
     
-    header("Location:post.php?p_id={$com_post_id}");
+    $query = "UPDATE posts SET ";
+    $query.= "post_comment_count = post_comment_count + 1 ";
+    $query .= "WHERE post_id = {$com_post_id}";
+    mysqli_query($connection, $query);
     
+    header("Location:post.php?p_id={$com_post_id}");
 }
 ?>
 
@@ -73,7 +77,16 @@ if(isset($_POST['submit'])){
                     <h4>Leave a Comment:</h4>
                     <form method="post" action="" enctype="multipart/form-data">
                         <div class="form-group">
-                           <textarea name="comment" class="form-control" placeholder="Enter comment here" cols="30" rows="5"></textarea>
+                            <lable>Name</lable>
+                            <input type="text" name="com_author" class="form-control" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <lable>Email</lable>
+                            <input type="email" name="com_email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <lable>Comment</lable>
+                            <textarea name="comment" class="form-control" placeholder="Enter comment here" cols="30" rows="5"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $post_id; ?>">Submit Comment</button>
                     </form>

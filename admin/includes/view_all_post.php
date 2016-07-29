@@ -2,15 +2,17 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Author</th>
             <th>Title</th>
+            <th>Author</th>
             <th>Category</th>
             <th>Status</th>
             <th>Image</th>
             <th>Tags</th>
             <th>Comments</th>
             <th>Date</th>
+            <th>Publish/ Draft</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -31,9 +33,8 @@
         $post_date = $row['post_date'];
 
         echo "<tr>";
-        echo "<td>{$post_id}</td>";
-        echo "<td>{$post_author}</td>";
         echo "<td>{$post_title}</td>";
+        echo "<td>{$post_author}</td>";
          
         $query = "SELECT * FROM categories WHERE cat_id = {$post_category} ";
         $select_cat = mysqli_query($connection, $query);
@@ -50,12 +51,25 @@
             $status_id = $row['status_id'];
             $status = $row['value'];
             
-            echo "<td>{$status}</td>";
+            if($status_id == 2){
+                echo "<td style='color:green'>{$status}</td>";
+            }else{
+                echo "<td style='color:red'>{$status}</td>";
+            }
+            
         } 
         echo "<td><img width = '100px' class = 'img-responsive' src = '../images/{$post_image}'></td>";
         echo "<td>{$post_tags}</td>";
         echo "<td>{$post_comments}</td>";
         echo "<td>{$post_date}</td>";
+         
+         //  publish/draft selction
+        if($post_status == 1){
+            echo "<td><a href='posts.php?status=2&p_id={$post_id}'>Publish</a></td>";
+        }else{
+            echo "<td><a href='posts.php?status=1&p_id={$post_id}'>Draft</a></td>";
+        }
+
         echo "<td><a href='posts.php?source=edit_posts&p_id={$post_id}'>Edit</a></td>";
         echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
         echo "</tr>";
@@ -72,6 +86,21 @@ if(isset($_GET['delete'])){
     $delete_query = mysqli_query($connection, $query);
     
     confirm($delete_query);
+    header("Location: posts.php");
+}
+?>
+
+<?php
+//change status
+if(isset($_GET['status'])){
+    $status = $_GET['status'];
+    $post_id = $_GET['p_id'];
+    
+    $query = "UPDATE posts SET ";
+    $query .= "post_status = {$status} ";
+    $query .= "WHERE post_id = {$post_id}";
+    mysqli_query($connection, $query);
+    
     header("Location: posts.php");
 }
 ?>
