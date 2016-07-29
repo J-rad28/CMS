@@ -125,6 +125,9 @@ if(isset($_POST['submit'])){
                             <?php
                         }
                     }
+                     if(empty($com_author)){
+                        echo "<h4 class='media-hedding'>Be the first to comment!</h4>";
+                    }
                 }
                 ?>
             </div>
