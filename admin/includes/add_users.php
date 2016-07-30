@@ -1,5 +1,5 @@
 <?php
-//add post
+//add user
 if(isset($_POST['create_user'])){
     global $connection;
     $username = $_POST['username'];

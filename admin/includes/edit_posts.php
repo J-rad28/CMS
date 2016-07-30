@@ -81,7 +81,7 @@
                 $cat_id = $row['cat_id'];
                 $cat_title = $row['cat_title'];
                 
-                echo "<option value='$cat_id'>{$cat_title}</option>";
+                echo "<option class='form-control' value='$cat_id'>{$cat_title}</option>";
             }
            ?>
         </select>
