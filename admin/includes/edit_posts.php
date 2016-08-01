@@ -24,6 +24,7 @@
 <?php
     //send post data
     if(isset($_POST['update_post'])){
+        global $u_id;
         $post_title = $_POST['post_title'];
         $post_author = $_POST['post_author'];
         $post_status = $_POST['post_status'];
@@ -61,7 +62,7 @@
         $update_post = mysqli_query($connection, $query);
     
         confirm($update_post);
-        header("Location: posts.php");
+        header("Location: posts.php?user_id=$u_id");
     }
 ?>
 <form action="" method="post" enctype="multipart/form-data">

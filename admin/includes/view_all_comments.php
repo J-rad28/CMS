@@ -62,21 +62,26 @@
          
         echo "<td>{$com_date}</td>";
          
-         //Approve button
-        if($com_status == 2){
-            echo "<td>Approve</td>";
-        }else{
-            echo "<td><a href='comments.php?approve={$com_id}&post_id={$com_post_id}'>Approve</a></td>";
-        }
-         
-         //Reject button
-        if($com_status == 3){
-            echo "<td>Reject</td>";
-        }else{
-            echo "<td><a href='comments.php?reject={$com_id}&post_id={$com_post_id}'>Reject</a></td>";
-        }
+        if(isset($_GET['user_id'])){
+            $u_id = $_GET['user_id'];
+            
+             //Approve button
+            if($com_status == 2){
+                echo "<td>Approve</td>";
+            }else{
+                echo "<td><a href='comments.php?approve={$com_id}&post_id={$com_post_id}&user_id={$u_id}'>Approve</a></td>";
+            }
 
-        echo "<td><a href='comments.php?delete={$com_id}&post_id={$com_post_id}'>Delete</a></td>";
+             //Reject button
+            if($com_status == 3){
+                echo "<td>Reject</td>";
+            }else{
+                echo "<td><a href='comments.php?reject={$com_id}&post_id={$com_post_id}&user_id={$u_id}'>Reject</a></td>";
+            }
+
+            echo "<td><a href='comments.php?delete={$com_id}&post_id={$com_post_id}&user_id={$u_id}'>Delete</a></td>";
+        }
+        
         echo "</tr>";
      }
     ?>
@@ -99,7 +104,7 @@ if(isset($_GET['delete'])){
     $delete_query = mysqli_query($connection, $query);
     
     confirm($delete_query);
-    header("Location: comments.php");
+    header("Location: comments.php?user_id={$u_id}");
 }
 ?>
 
@@ -117,7 +122,7 @@ if(isset($_GET['approve'])){
     $approve_query = mysqli_query($connection, $query);
 
     confirm($approve_query);
-    header("Location: comments.php");
+    header("Location: comments.php?user_id={$u_id}");
 }
 ?>
 
@@ -135,6 +140,6 @@ if(isset($_GET['reject'])){
     $reject_query = mysqli_query($connection, $query);
     
     confirm($reject_query);
-    header("Location: comments.php");
+    header("Location: comments.php?user_id={$u_id}");
 }
 ?>

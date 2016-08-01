@@ -1,6 +1,7 @@
 <?php
     //add post
     if(isset($_POST['create_post'])){
+        global $u_id;
         $post_title = $_POST['post_title'];
         $post_category = $_POST['post_category_id'];
         $post_author = $_POST['post_author'];
@@ -23,7 +24,7 @@
         $add_post = mysqli_query($connection, $query);
     
         confirm($add_post);
-        header("Location: posts.php");
+        header("Location: posts.php?user_id={$u_id}");
     }
     
 ?>

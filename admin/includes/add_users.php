@@ -2,6 +2,7 @@
 //add user
 if(isset($_POST['create_user'])){
     global $connection;
+    global $u_id;
     $username = $_POST['username'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
@@ -35,7 +36,7 @@ if(isset($_POST['create_user'])){
             }
         }
     }
-    header("Location: users.php");
+    header("Location: users.php?user_id={$u_id}");
 }
 
 ?>

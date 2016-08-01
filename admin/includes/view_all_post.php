@@ -63,15 +63,19 @@
         echo "<td>{$post_comments}</td>";
         echo "<td>{$post_date}</td>";
          
-         //  publish/draft selction
-        if($post_status == 1){
-            echo "<td><a href='posts.php?status=2&p_id={$post_id}'>Publish</a></td>";
-        }else{
-            echo "<td><a href='posts.php?status=1&p_id={$post_id}'>Draft</a></td>";
+        if(isset($_GET['user_id'])){
+            $u_id = $_GET['user_id'];
+            
+            //  publish/draft selction
+            if($post_status == 1){
+                echo "<td><a href='posts.php?status=2&p_id={$post_id}&user_id={$u_id}'>Publish</a></td>";
+            }else{
+                echo "<td><a href='posts.php?status=1&p_id={$post_id}&user_id={$u_id}'>Draft</a></td>";
+            }
+           
+            echo "<td><a href='posts.php?source=edit_posts&p_id={$post_id}&user_id={$u_id}'>Edit</a></td>";
+            echo "<td><a href='posts.php?delete={$post_id}&user_id={$u_id}'>Delete</a></td>";
         }
-
-        echo "<td><a href='posts.php?source=edit_posts&p_id={$post_id}'>Edit</a></td>";
-        echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
         echo "</tr>";
      }
     ?>
@@ -86,7 +90,7 @@ if(isset($_GET['delete'])){
     $delete_query = mysqli_query($connection, $query);
     
     confirm($delete_query);
-    header("Location: posts.php");
+    header("Location: posts.php?user_id={$u_id}");
 }
 ?>
 
@@ -101,6 +105,6 @@ if(isset($_GET['status'])){
     $query .= "WHERE post_id = {$post_id}";
     mysqli_query($connection, $query);
     
-    header("Location: posts.php");
+    header("Location: posts.php?user_id={$u_id}");
 }
 ?>

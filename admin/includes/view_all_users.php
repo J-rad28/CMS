@@ -48,8 +48,8 @@
             
         } 
 
-        echo "<td><a href='users.php?source=edit_user&user_id={$user_id}'>Edit</a></td>";
-        echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
+        echo "<td><a href='users.php?source=edit_user&edit_user_id={$user_id}&user_id={$u_id}'>Edit</a></td>";
+        echo "<td><a href='users.php?delete={$user_id}&user_id={$u_id}'>Delete</a></td>";
         echo "</tr>";
      }
     ?>
@@ -64,6 +64,6 @@ if(isset($_GET['delete'])){
     $delete_query = mysqli_query($connection, $query);
     
     confirm($delete_query);
-    header("Location: users.php");
+    header("Location: users.php?user_id={$u_id}");
 }
 ?>

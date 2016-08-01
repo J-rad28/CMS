@@ -2,7 +2,7 @@
     //Retreive user data
     if(isset($_GET['source'])){
         global $connection;
-        $user_edit_id = $_GET['user_id'];
+        $user_edit_id = $_GET['edit_user_id'];
         
         $query = "SELECT * FROM users WHERE user_id = {$user_edit_id} ";
         $update_query = mysqli_query($connection, $query);
@@ -24,6 +24,7 @@
     //send user data
    if(isset($_POST['update_user'])){
         global $connection;
+        global $u_id;
         $username = $_POST['username'];
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
@@ -37,11 +38,11 @@
         move_uploaded_file($user_image_temp,"../images/$user_image");
         
         if(empty($user_image)){
-            $query = "SELECT * FROM posts WHERE post_id = $post_id ";
+            $query = "SELECT * FROM users WHERE user_id = $user_id ";
             $select_image = mysqli_query($connection, $query);
             
             while($row = mysqli_fetch_array($select_image)){
-                $post_image = $row['post_image'];
+                $user_image = $row['user_image'];
             }
         }
 
@@ -62,12 +63,13 @@
         $query .= "user_email = '{$user_email}', ";
         $query .= "user_role = '{$user_role}', ";
         $query .= "password = '{$password}', ";
+        $query .= "rand_salt = '{$rand_salt}', ";
         $query .= "user_image = '{$user_image}' ";
         $query .= "WHERE user_id = {$user_id}";
 
         mysqli_query($connection, $query);
 
-        header("Location: users.php");
+        header("Location: users.php?user_id={$u_id}");
 }
 ?>
 <form action="" method="post" enctype="multipart/form-data">

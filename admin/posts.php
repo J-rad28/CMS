@@ -12,28 +12,28 @@
             <!-- Page Heading -->
             <div class="row">
                 <div class="col-lg-12">
-                <?php include "includes/page_heading.php"; ?>
-                <?php 
-                    if(isset($_GET['source'])){
-                        $source = $_GET['source'];
-                    }else{
-                        $source = "";
-                    }
-                    switch($source){
+                    <?php include "includes/page_heading.php"; ?>
+                    <?php 
+                        if(isset($_GET['source'])){
+                            $source = $_GET['source'];
+                        }else{
+                            $source = "";
+                        }
+                        switch($source){
 
-                        case "add_posts";
-                        include "includes/add_posts.php";
-                        break;
-                        
-                        case "edit_posts";
-                        include "includes/edit_posts.php";
-                        break;
+                            case "add_posts";
+                            include "includes/add_posts.php";
+                            break;
 
-                        default:
-                        include "includes/view_all_post.php";
-                        break;
-                    } 
-                ?>  
+                            case "edit_posts";
+                            include "includes/edit_posts.php";
+                            break;
+
+                            default:
+                            include "includes/view_all_post.php";
+                            break;
+                        } 
+                    ?>  
                 </div>
             </div>
             <!-- /.row -->
