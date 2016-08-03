@@ -1,10 +1,9 @@
 <?php
     //add post
     if(isset($_POST['create_post'])){
-        global $u_id;
         $post_title = $_POST['post_title'];
         $post_category = $_POST['post_category_id'];
-        $post_author = $_POST['post_author'];
+        $post_author = $_SESSION['username'];
         $post_status = 1;
         
         $post_image = $_FILES['post_image']['name'];
@@ -24,7 +23,7 @@
         $add_post = mysqli_query($connection, $query);
     
         confirm($add_post);
-        header("Location: posts.php?user_id={$u_id}");
+        header("Location: posts.php");
     }
     
 ?>
@@ -51,10 +50,6 @@
             }
            ?>
         </select>
-    </div> 
-    <div class="form-group">
-        <lable for="post_author">Author</lable>
-        <input type="text" class="form-control" name="post_author">
     </div> 
     <div class="form-group">
         <lable for="post_image">Image</lable>

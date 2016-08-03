@@ -13,7 +13,7 @@ if(isset($_POST['create_user'])){
     $user_image = $_FILES['user_image']['name'];
     $user_image_temp = $_FILES['user_image']['tmp_name'];
 
-    move_uploaded_file($user_image_temp,"../images/$user_image");
+    move_uploaded_file($user_image_temp,"images/$user_image");
 
     $username = mysqli_real_escape_string($connection, $username);
     $firstname = mysqli_real_escape_string($connection, $firstname);
@@ -29,14 +29,14 @@ if(isset($_POST['create_user'])){
                 $hash = '$6$rounds=5000$';
                 $hash_salt = $hash . $rand_salt;
                 $password = crypt($password, $hash_salt);
-
+                
                 $query = "INSERT INTO users(username, firstname, lastname, user_email, user_role, password, rand_salt, user_image) ";
                 $query .= "VALUES ('$username', '$firstname', '$lastname', '$user_email', $user_role, '$password', '$rand_salt', '$user_image')";
                 $add_user = mysqli_query($connection, $query);
             }
         }
-    }
-    header("Location: users.php?user_id={$u_id}");
+    } 
+    header("Location: users.php");
 }
 
 ?>

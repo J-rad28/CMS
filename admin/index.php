@@ -1,4 +1,9 @@
 <?php include "includes/admin_header.php"; ?>
+<?php
+if($_SESSION['user_role'] == 1){
+    header("Location: profile.php");
+}
+?>
 
 <div id="wrapper">
    

@@ -23,16 +23,21 @@
                             echo "<li><a href='#'>{$cat_title}</a></li>";
                      }
                     ?>
-                    <li>
-                        <a href="admin">Admin</a>
-                    </li>
-<!--
-                    <li>
-                        <a href="#">Contact</a>
-                    </li> 
--->
-
                 </ul>
+                <?php 
+                if(isset($_SESSION['user_role'])){
+                   ?>
+                   <ul class="nav navbar-nav">
+                        <li>
+                            <a href="admin/">Admin</a>
+                        </li>
+                        <li>
+                            <a href="includes/logout.php">Log out</a>
+                        </li> 
+                    </ul> 
+                    <?php
+                }
+                ?>
             </div>
             <!-- /.navbar-collapse -->
         </div>

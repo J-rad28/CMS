@@ -1,4 +1,5 @@
 <?php include "db.php"; ?>
+<?php session_start(); ?>
 <?php
 if(isset($_POST['login'])){
     global $connection;
@@ -17,13 +18,33 @@ if(isset($_POST['login'])){
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
         $user_role = $row['user_role'];
+        $user_email = $row['user_email'];
+        $rand_salt = $row['rand_salt'];
         
     }
-    if($log_username == $username && $log_password == $password){
+   /* $hash = '$6$rounds=5000$';
+    $hash_salt = $hash . $rand_salt;
+    $log_password = crypt($log_password, $hash_salt);*/
+    if($log_username === $username && $log_password === $password){
         if($user_role == 1){
-            header("Location: ../?user_id={$user_id}");
-        }elseif($user_role == 2){
-            header("Location: ../admin/?user_id={$user_id}");
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['username'] = $username;
+            $_SESSION['firstname'] = $firstname;
+            $_SESSION['lastname'] = $lastname;
+            $_SESSION['user_email'] = $user_email;
+            $_SESSION['user_role'] = $user_role;
+            
+            header("Location: ../");
+            
+        }elseif($user_role == 2){ 
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['username'] = $username;
+            $_SESSION['firstname'] = $firstname;
+            $_SESSION['lastname'] = $lastname;
+            $_SESSION['user_email'] = $user_email;
+            $_SESSION['user_role'] = $user_role;
+            
+            header("Location: ../admin");
         }
     }else{
         header("Location: ../?failed=true");

@@ -24,6 +24,8 @@ function AddCategory(){
                 die("query failed" . mysqli_error($connection));                       
             }
         }
+        
+        header("Location: categories.php");
     }
     ?>
     <!-- form to add categories -->

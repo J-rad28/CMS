@@ -15,31 +15,63 @@
                     </form> <!--search form -->
                     <!-- /.input-group -->
                 </div>
-                
-                <!-- login -->
-                <div class="well">
-                    <h4>Login</h4>
-                    <?php
-                    if(isset($_GET['failed'])){
-                        echo "<h5 style='color:red'><strong>Incorrect Username and/or Password</strong></h5>";
+                <?php
+                if(isset($_SESSION['user_role'])){
+                    if($_SESSION['user_role'] == null){
+                        ?>
+                        <!-- login -->
+                        <div class="well">
+                            <h4>Login</h4>
+                            <?php
+                            if(isset($_GET['failed'])){
+                                echo "<h5 style='color:red'><strong>Incorrect Username and/or Password</strong></h5>";
+                            }
+                            ?>
+                            <form action="includes/login.php" method="post">
+                            <div class="form-group">
+                                <lable for="username">Username</lable>
+                                <input name="username" type="text" class="form-control" placeholder="Enter username">
+                            </div>
+                            <div class="form-group">
+                                   <lable for="password">Password</lable>
+                                <input name="password" type="password" class="form-control" placeholder="Enter password">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" name="login" type="submit">Login</button>
+                            </div>
+                            </form> <!--search form -->
+                            <!-- /.input-group -->
+                        </div>
+                        <?php
                     }
+                }else{
                     ?>
-                    <form action="includes/login.php" method="post">
-                    <div class="form-group">
-                        <lable for="username">Username</lable>
-                        <input name="username" type="text" class="form-control" placeholder="Enter username">
+                    <!-- login -->
+                    <div class="well">
+                        <h4>Login</h4>
+                        <?php
+                        if(isset($_GET['failed'])){
+                            echo "<h5 style='color:red'><strong>Incorrect Username and/or Password</strong></h5>";
+                        }
+                        ?>
+                        <form action="includes/login.php" method="post">
+                        <div class="form-group">
+                            <lable for="username">Username</lable>
+                            <input name="username" type="text" class="form-control" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                               <lable for="password">Password</lable>
+                            <input name="password" type="password" class="form-control" placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" name="login" type="submit">Login</button>
+                        </div>
+                        </form> <!--search form -->
+                        <!-- /.input-group -->
                     </div>
-                    <div class="form-group">
-                           <lable for="password">Password</lable>
-                        <input name="password" type="password" class="form-control" placeholder="Enter password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" name="login" type="submit">Login</button>
-                    </div>
-                    </form> <!--search form -->
-                    <!-- /.input-group -->
-                </div>
-
+                    <?php
+                }
+                ?>
                 <!-- Blog Categories Well -->
                 <div class="well">
                   <?php

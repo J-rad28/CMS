@@ -6,9 +6,14 @@
 <?php
 //add comment to database
 if(isset($_POST['submit'])){
+    if(isset($_SESSION['user_id'])){
+        $com_author = $_SESSION['username'];
+        $com_email = $_SESSION['user_email'];
+    }else{
+        $com_author = $_POST['com_author'];
+        $com_email = $_POST['com_email'];
+    }
     $com_content = $_POST['comment'];
-    $com_author = $_POST['com_author'];
-    $com_email = $_POST['com_email'];
     $com_post_id = $_POST['submit'];
     $post_date = date('d-m-y');
 
@@ -76,6 +81,11 @@ if(isset($_POST['submit'])){
                 <div class="well">
                     <h4>Leave a Comment:</h4>
                     <form method="post" action="" enctype="multipart/form-data">
+                        <?php
+                        if(isset($_SESSION['user_id'])){
+                            
+                        }else{
+                        ?>
                         <div class="form-group">
                             <lable>Name</lable>
                             <input type="text" name="com_author" class="form-control" placeholder="Enter your name">
@@ -84,6 +94,9 @@ if(isset($_POST['submit'])){
                             <lable>Email</lable>
                             <input type="email" name="com_email" class="form-control" placeholder="Enter your email">
                         </div>
+                        <?php
+                            }
+                        ?>
                         <div class="form-group">
                             <lable>Comment</lable>
                             <textarea name="comment" class="form-control" placeholder="Enter comment here" cols="30" rows="5"></textarea>

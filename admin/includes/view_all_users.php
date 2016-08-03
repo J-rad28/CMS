@@ -32,7 +32,7 @@
         echo "<td>{$firstname}</td>";
         echo "<td>{$lastname}</td>";
         echo "<td>{$email}</td>";
-        echo "<td><img width = '100px' class = 'img-responsive' src = '../images/{$user_image}'></td>";
+        echo "<td><img width = '100px' class = 'img-responsive' src = 'images/{$user_image}'></td>";
          
         $query = "SELECT * FROM user_role WHERE role_id = {$user_role}";
         $view_role = mysqli_query($connection, $query);
@@ -48,8 +48,8 @@
             
         } 
 
-        echo "<td><a href='users.php?source=edit_user&edit_user_id={$user_id}&user_id={$u_id}'>Edit</a></td>";
-        echo "<td><a href='users.php?delete={$user_id}&user_id={$u_id}'>Delete</a></td>";
+        echo "<td><a href='users.php?source=edit_user&edit_user_id={$user_id}'>Edit</a></td>";
+        echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
         echo "</tr>";
      }
     ?>
@@ -57,13 +57,13 @@
  </table>
  
 <?php
-//delete posts
+//delete users
 if(isset($_GET['delete'])){
     $delete_user = $_GET['delete'];
     $query = "DELETE FROM users WHERE user_id = {$delete_user} ";
     $delete_query = mysqli_query($connection, $query);
     
     confirm($delete_query);
-    header("Location: users.php?user_id={$u_id}");
+    header("Location: users.php");
 }
 ?>

@@ -24,10 +24,8 @@
 <?php
     //send post data
     if(isset($_POST['update_post'])){
-        global $u_id;
         $post_title = $_POST['post_title'];
         $post_author = $_POST['post_author'];
-        $post_status = $_POST['post_status'];
         $post_category_id = $_POST['post_category'];
         
         $post_image = $_FILES['post_image']['name'];
@@ -51,18 +49,17 @@
         $query = "UPDATE posts SET ";
         $query .= "post_title = '{$post_title}', ";
         $query .= "post_author = '{$post_author}', ";
-        $query .= "post_category_id = '{$post_category_id}', ";
+        $query .= "post_category_id = {$post_category_id}, ";
         $query .= "post_image = '{$post_image}', ";
         $query .= "post_content = '{$post_content}', ";
         $query .= "post_tags = '{$post_tags}', ";
-        $query .= "post_date = now(), ";
-        $query .= "post_status = '{$post_status}' ";
+        $query .= "post_date = now() ";
         $query .= "WHERE post_id = {$post_id}";
     
         $update_post = mysqli_query($connection, $query);
     
         confirm($update_post);
-        header("Location: posts.php?user_id=$u_id");
+        header("Location: posts.php");
     }
 ?>
 <form action="" method="post" enctype="multipart/form-data">

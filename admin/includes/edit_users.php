@@ -24,7 +24,6 @@
     //send user data
    if(isset($_POST['update_user'])){
         global $connection;
-        global $u_id;
         $username = $_POST['username'];
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
@@ -35,7 +34,7 @@
         $user_image = $_FILES['user_image']['name'];
         $user_image_temp = $_FILES['user_image']['tmp_name'];
 
-        move_uploaded_file($user_image_temp,"../images/$user_image");
+        move_uploaded_file($user_image_temp,"images/$user_image");
         
         if(empty($user_image)){
             $query = "SELECT * FROM users WHERE user_id = $user_id ";
@@ -52,9 +51,9 @@
         $user_email = mysqli_real_escape_string($connection, $user_email);
         $password = mysqli_real_escape_string($connection, $password);
 
-        $hash = '$6$rounds=5000$';
+       /* $hash = '$6$rounds=5000$';
         $hash_salt = $hash . $rand_salt;
-        $password = crypt($password, $hash_salt);
+        $password = crypt($password, $hash_salt); */
 
         $query = "UPDATE users SET ";
         $query .= "username = '{$username}', ";
@@ -69,7 +68,7 @@
 
         mysqli_query($connection, $query);
 
-        header("Location: users.php?user_id={$u_id}");
+        header("Location: users.php");
 }
 ?>
 <form action="" method="post" enctype="multipart/form-data">
@@ -110,7 +109,7 @@
     </div> 
     <div class="form-group">
         <lable for="user_image">Profile Picture</lable>
-        <img width = 100px src="../images/<?php echo $user_image; ?>" alt="">
+        <img width = 100px src="images/<?php echo $user_image; ?>" alt="">
         <input type="file" name="user_image">
     </div>
     <div class="form-group">

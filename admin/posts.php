@@ -16,6 +16,8 @@
                     <?php 
                         if(isset($_GET['source'])){
                             $source = $_GET['source'];
+                        }elseif($_SESSION['user_role'] == 1){
+                            $source = "add_posts";
                         }else{
                             $source = "";
                         }
