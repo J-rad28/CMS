@@ -18,6 +18,7 @@ if($_SESSION['user_role'] == 1){
             <div class="row">
                 <div class="col-lg-12">
                     <?php include "includes/page_heading.php"; ?>   
+                    <?php include "includes/admin_widgets.php"; ?>   
                 </div>
             </div>
             <!-- /.row -->
